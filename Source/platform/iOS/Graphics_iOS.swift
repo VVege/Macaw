@@ -16,7 +16,11 @@ func MGraphicsGetCurrentContext() -> CGContext? {
 }
 
 func MGraphicsGetImageFromCurrentImageContext() -> MImage! {
-    return UIGraphicsGetImageFromCurrentImageContext()
+    //Add By LHVEGE
+    if let image = UIGraphicsGetImageFromCurrentImageContext() {
+        return image
+    }
+    return MImage()
 }
 
 func MGraphicsPushContext(_ context: CGContext) {

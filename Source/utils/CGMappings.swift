@@ -140,16 +140,19 @@ public extension Node {
         let rect = size.rect()
 
         MGraphicsBeginImageContextWithOptions(size.toCG(), false, 1)
-        let ctx = MGraphicsGetCurrentContext()!
-        ctx.clear(rect.toCG())
+        var img = MImage()
+        //MARK: Add By LHVEGE
+        if let ctx = MGraphicsGetCurrentContext() {
+            ctx.clear(rect.toCG())
 
-        let transform = LayoutHelper.calcTransform(self, layout, size)
-        ctx.concatenate(transform.toCG())
-        renderer.render(in: ctx, force: false, opacity: self.opacity)
+            let transform = LayoutHelper.calcTransform(self, layout, size)
+            ctx.concatenate(transform.toCG())
+            renderer.render(in: ctx, force: false, opacity: self.opacity)
 
-        let img = MGraphicsGetImageFromCurrentImageContext()
+            img = MGraphicsGetImageFromCurrentImageContext() ?? MImage()
+        }
         MGraphicsEndImageContext()
-        return img!
+        return img
     }
 
 }

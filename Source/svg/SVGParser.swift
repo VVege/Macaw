@@ -484,10 +484,14 @@ open class SVGParser {
             contentNode = Group(contents: shapes)
         }
 
-        return UserSpacePattern(content: contentNode!,
-                                bounds: bounds,
-                                userSpace: userSpace,
-                                contentUserSpace: contentUserSpace)
+        //MARK: Add by LHVEGE
+        if let contentNode = contentNode {
+            return UserSpacePattern(content: contentNode,
+            bounds: bounds,
+            userSpace: userSpace,
+            contentUserSpace: contentUserSpace)
+        }
+        return nil
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, style: [String: String]) throws -> Group? {
